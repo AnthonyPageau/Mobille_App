@@ -22,14 +22,16 @@ function Login(props) {
   const { navigation } = props
 
   async function getData(email) {
+
     var url = `https://codeboxx-alexa.azurewebsites.net/api/Customer/find/${email}`;
     const response = await fetch(url);
     const data = await response.json();
+    console.warn(data.length)
     return data
   };
   async function checkData() {
     var getEmployee = await getData(text)
-    if (getEmployee.length != 0) {
+    if (getEmployee.length == 1) {
       navigation.navigate("Home")
     } else {
       alert("WRONG EMAIL")

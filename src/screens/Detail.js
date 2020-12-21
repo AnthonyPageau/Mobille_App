@@ -1,26 +1,75 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, Image } from 'react-native'
+import logo from '../screens/Logo-rocket.png'
 
 function Detail(props) {
   const { route } = props
+  const { navigation } = props
   const { item } = route.params
   const { id, status, serialNumber } = item
-  const updateElevator = 'https://codeboxx-alexa.azurewebsites.net/api/Elevator/';
+  async function changeStatus() {
+    const url = `https://codeboxx-alexa.azurewebsites.net/api/Elevator/${id}`
+    const someData = {
+      "elevator_status": "ACTIVE"
+    }   
+      const putMethod = {
+        method: 'PUT',
+        headers: {
+         'Content-type': 'application/json; charset=UTF-8' 
+        },
+        body: JSON.stringify(someData)
+      }
+      fetch(url, putMethod)
+  }
 
+  async function getInfo() {
+    var url = `https://codeboxx-alexa.azurewebsites.net/api/Elevator/Spec/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data
+  }
+  if (status == "ACTIVE"){
+    return (
+      <View style={styles.container}>
+        <Image source={ logo }style={styles.logo}/>
+        <View>
+          <Text style={styles.text}>ID: {id}</Text>
+          <Text style={styles.text}>STATUS:</Text>
+          <Text style={styles.textGreen}>{status}</Text>
+          <Text style={styles.text}>SN: {serialNumber}</Text>
+          <TouchableOpacity style={styles.appButtonContainer}
+            onPress={() => navigation.navigate ('Home')}>
+            <Text style={styles.appButtonText}>HOME SCREEN</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }else {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Detail Screen</Text>
-      <View style={styles.card}>
-        <Text style={styles.cardText}>ID: {id}</Text>
-        <Text style={styles.cardText}>STATUS: {status}</Text>
-        <Text style={styles.cardText}>SN: {serialNumber}</Text>
-        <TouchableOpacity style={styles.buttonContainerLogout}
-            onPress={ elevatorStat}>
-          <Text style={styles.loginText}>LOGIN</Text>
+    <Image source={ logo }style={styles.logo}/>
+    <View>
+      <Text style={styles.text}>ID: {id}</Text>
+      <Text style={styles.text}>STATUS:</Text>
+      <Text style={styles.textRed}>{status}</Text>
+      <Text style={styles.text}>SN: {serialNumber}</Text>
+        <TouchableOpacity style={styles.appButtonContainer}
+            onPress={ async () => { 
+              await changeStatus();
+              const Elevator = await getInfo();
+              const newInfo = {
+                id: Elevator.id,
+                status: Elevator.elevator_status,
+                serialNumber: Elevator.serial_number,
+              }
+              navigation.navigate('Detail', {item:newInfo})
+            } }>
+          <Text style={styles.appButtonText}>CHANGE STATUS</Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -28,34 +77,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ebebeb'
-  },
-  buttonContainerLogout: {
-    backgroundColor: '#222',
-    borderRadius: 5,
-    padding: 10,
-    position: 'absolute',
-    top:0,
-    left:0,
+    backgroundColor: '#A9A9A9'
   },
   text: {
     color: '#101010',
     fontSize: 24,
     fontWeight: 'bold'
   },
-  card: {
-    width: 350,
-    height: 100,
-    borderRadius: 10,
-    backgroundColor: '#101010',
-    margin: 10,
-    padding: 10,
-    alignItems: 'center'
+  textGreen: {
+    color: '#21AF4B',
+    fontSize: 30,
+    fontWeight: 'bold'
   },
-  cardText: {
+  textRed: {
+    color: '#CB2028',
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#A3060E",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginTop:0
+  },
+  appButtonText: {
     fontSize: 18,
-    color: '#ffd700',
-    marginBottom: 5
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   },
 })
 

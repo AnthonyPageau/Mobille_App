@@ -1,4 +1,5 @@
-import * as React from 'react'
+import * as React from 'react';
+import { View, Text, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -25,12 +26,24 @@ function MainStackNavigator() {
         <Stack.Screen
           name='Home'
           component={Home}
-          options={{ title: 'Home Screen' }}
+          options={({navigation}) => ({  headerRight: () => (
+            <Button
+              onPress={() => navigation.navigate ('Login')}
+              title="Logout"
+              color="#A3060E"
+            />
+          ), })}
         />
-        <Stack.Screen
+         <Stack.Screen
           name='Detail'
           component={Detail}
-          options={{ title: 'Detail Screen' }}
+          options={({navigation}) => ({  headerRight: () => (
+            <Button
+              onPress={() => navigation.navigate ('Login')}
+              title="Logout"
+              color="#A3060E"
+            />
+          ), })}
         />
       </Stack.Navigator>
     </NavigationContainer>

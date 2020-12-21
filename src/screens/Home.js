@@ -10,7 +10,7 @@ export default class Home extends Component {
     }
   }
   
-  componentDidMount() {
+  getInfo() {
     fetch `https://codeboxx-alexa.azurewebsites.net/api/Elevator/Active`
     .then((response) => response.json())
     .then((responseJson) => {
@@ -20,6 +20,7 @@ export default class Home extends Component {
       })
     })
   }
+
   _renderItem = ({item, index}) => {
     const info = {
       id: item.id,
@@ -27,7 +28,7 @@ export default class Home extends Component {
       serialNumber: item.serial_number
     }
     return (
-      <View >
+      <View style={styles.container}>
         <TouchableOpacity
         onPress={()=> this.props.navigation.navigate('Detail', {item: info })}>
         <Text style={styles.text}> ID:{item.id}  SerialNumber:{item.serial_number} </Text>
@@ -35,16 +36,14 @@ export default class Home extends Component {
       </View>  
     )
   }
+  
   render() {
+    this.getInfo()
     let {dataSource, isloading} = this.state
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Elevator</Text>
-        <TouchableOpacity
-          style={styles.buttonContainerLogout}
-          onPress={() => this.props.navigation.navigate('Login')}>
-          <Text style={styles.buttonText}>LogOut</Text>
-        </TouchableOpacity>
+
         <FlatList
           data={dataSource}
           renderItem={this._renderItem}
