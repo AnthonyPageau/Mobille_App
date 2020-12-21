@@ -11,7 +11,7 @@ export default class Home extends Component {
   }
   
   getInfo() {
-    fetch `https://codeboxx-alexa.azurewebsites.net/api/Elevator/Active`
+    fetch `https://mobile-app-anthony.azurewebsites.netapi/Elevator/Active`
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
