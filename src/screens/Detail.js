@@ -8,7 +8,7 @@ function Detail(props) {
   const { item } = route.params
   const { id, status, serialNumber } = item
   async function changeStatus() {
-    const url = `https://mobile-app-anthony.azurewebsites.netapi/Elevator/${id}`
+    const url = `https://mobile-app-anthony.azurewebsites.net/api/Elevator/${id}`
     const someData = {
       "elevator_status": "ACTIVE"
     }   
@@ -23,7 +23,7 @@ function Detail(props) {
   }
 
   async function getInfo() {
-    var url = `https://mobile-app-anthony.azurewebsites.netapi/Elevator/Spec/${id}`;
+    var url = `https://mobile-app-anthony.azurewebsites.net/api/Elevator/Spec/${id}`;
     const response = await fetch(url);
     const data = await response.json();
     return data

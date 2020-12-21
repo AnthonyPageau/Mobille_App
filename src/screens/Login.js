@@ -13,7 +13,7 @@ function Login(props) {
 
   async function getData(email) {
 
-    var url = `https://mobile-app-anthony.azurewebsites.netapi/Employee/find/${email}`;
+    var url = `https://mobile-app-anthony.azurewebsites.net/api/Employee/find/${email}`;
     const response = await fetch(url);
     const data = await response.json();
     return data
