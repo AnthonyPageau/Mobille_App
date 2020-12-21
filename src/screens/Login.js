@@ -1,19 +1,9 @@
 import React, { useState } from 'react';
-import FlashMessage from "react-native-flash-message";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  Dimensions,
-  TextInput,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions, TextInput, TouchableOpacity} from 'react-native';
 
 import bgImage from '../screens/background.jpg'
 import logo from '../screens/Logo-rocket.png'
-import { render } from 'react-dom';
+
 
 const { width: WIDTH } = Dimensions.get('window') 
 
@@ -23,7 +13,7 @@ function Login(props) {
 
   async function getData(email) {
 
-    var url = `https://codeboxx-alexa.azurewebsites.net/api/Customer/find/${email}`;
+    var url = `https://codeboxx-alexa.azurewebsites.net/api/Employee/find/${email}`;
     const response = await fetch(url);
     const data = await response.json();
     return data

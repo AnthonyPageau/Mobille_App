@@ -1,5 +1,5 @@
-import React, { useEffect, useState, Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, SafeAreaView, StatusBar, Button } from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native'
 
 export default class Home extends Component {
   constructor(props){
@@ -30,8 +30,8 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-        onPress={()=> this.props.navigation.navigate('Detail', {item: info })}>
-        <Text style={styles.text}> ID:{item.id}  SerialNumber:{item.serial_number} </Text>
+          onPress={()=> this.props.navigation.navigate('Detail', {item: info })}>
+          <Text style={styles.text}> ID:{item.id}  SerialNumber:{item.serial_number} </Text>
         </TouchableOpacity>
       </View>  
     )
