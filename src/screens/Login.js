@@ -26,7 +26,6 @@ function Login(props) {
     var url = `https://codeboxx-alexa.azurewebsites.net/api/Customer/find/${email}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.warn(data.length)
     return data
   };
   async function checkData() {
