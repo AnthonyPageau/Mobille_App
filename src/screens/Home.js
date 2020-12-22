@@ -11,7 +11,7 @@ export default class Home extends Component {
   }
   
   getInfo() {
-    fetch `https://mobile-app-anthony.azurewebsites.net/api/Elevator/Active`
+    fetch `https://last-dance.azurewebsites.net/api/Elevator/Active`
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
@@ -29,10 +29,14 @@ export default class Home extends Component {
     }
     return (
       <View style={styles.container}>
+        <View style={styles.card}>
         <TouchableOpacity
           onPress={()=> this.props.navigation.navigate('Detail', {item: info })}>
-          <Text style={styles.text}> ID:{item.id}  SerialNumber:{item.serial_number} </Text>
+          <Text style={styles.text}> ID:{item.id} </Text>
+          <Text style={styles.text}> Status:{item.elevator_status} </Text>
+          <Text style={styles.text}> SN:{item.serial_number} </Text>
         </TouchableOpacity>
+        </View>
       </View>  
     )
   }
@@ -42,8 +46,7 @@ export default class Home extends Component {
     let {dataSource, isloading} = this.state
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Elevator</Text>
-
+        <Text style={styles.textTitle}>Not-Active Elevators</Text>
         <FlatList
           data={dataSource}
           renderItem={this._renderItem}
@@ -59,12 +62,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ebebeb'
+    backgroundColor: '#A9A9A9'
   },
   text: {
-    color: '#101010',
+    color: '#FFFFFF',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  textTitle: {
+    color: '#101010',
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   buttonContainer: {
     backgroundColor: '#222',
@@ -85,7 +95,16 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff'
-  }
+  },
+  card: {
+    width: 300,
+    height: 100,
+    borderRadius: 10,
+    backgroundColor: '#A3060E',
+    margin: 10,
+    padding: 10,
+    alignItems: 'center'
+  },
 })
 
 

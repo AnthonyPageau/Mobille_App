@@ -13,7 +13,7 @@ function Login(props) {
 
   async function getData(email) {
 
-    var url = `https://mobile-app-anthony.azurewebsites.net/api/Employee/find/${email}`;
+    var url = `https://last-dance.azurewebsites.net/api/Employee/find/${email}`;
     const response = await fetch(url);
     const data = await response.json();
     return data
@@ -29,10 +29,9 @@ function Login(props) {
     return (
       <ImageBackground source={ bgImage }style={styles.backgroundContainer}>
          
-        <View style={styles.logoContainer}>
-          <Image source={ logo }style={styles.logo}/>
-        </View>
+        
         <View>
+        <Image source={ logo }style={styles.logo}/>     
           <TextInput
             style={styles.input}
             placeholder={'Email'}
