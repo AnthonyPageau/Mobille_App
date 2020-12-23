@@ -6,6 +6,9 @@ function Detail(props) {
   const { route } = props
   const { navigation } = props
   const { item } = route.params
+  const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
   //  Get data from a specific elevator
   const { id, status, serialNumber } = item
   // Change elevator status
@@ -23,6 +26,7 @@ function Detail(props) {
       }
       fetch(url, putMethod)
   }
+  
   // Get data with the new status
   async function getInfo() {
     var url = `https://last-dance.azurewebsites.net/api/Elevator/Spec/${id}`;
@@ -56,8 +60,10 @@ function Detail(props) {
       <Text style={styles.textRed}>{status}</Text>
       <Text style={styles.text}>SN: {serialNumber}</Text>
         <TouchableOpacity style={styles.appButtonContainer}
+        
             onPress={ async () => { 
               await changeStatus();
+              await sleep(100)
               const Elevator = await getInfo();
               const newInfo = {
                 id: Elevator.id,
