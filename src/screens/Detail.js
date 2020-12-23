@@ -59,11 +59,10 @@ function Detail(props) {
       <Text style={styles.text}>STATUS:</Text>
       <Text style={styles.textRed}>{status}</Text>
       <Text style={styles.text}>SN: {serialNumber}</Text>
-        <TouchableOpacity style={styles.appButtonContainer}
-        
+        <TouchableOpacity style={styles.appButtonContainer}        
             onPress={ async () => { 
               await changeStatus();
-              await sleep(100)
+              await sleep(500)
               const Elevator = await getInfo();
               const newInfo = {
                 id: Elevator.id,
