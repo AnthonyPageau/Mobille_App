@@ -6,7 +6,9 @@ function Detail(props) {
   const { route } = props
   const { navigation } = props
   const { item } = route.params
+  //  Get data from a specific elevator
   const { id, status, serialNumber } = item
+  // Change elevator status
   async function changeStatus() {
     const url = `https://last-dance.azurewebsites.net/api/Elevator/${id}`
     const someData = {
@@ -21,7 +23,7 @@ function Detail(props) {
       }
       fetch(url, putMethod)
   }
-
+  // Get data with the new status
   async function getInfo() {
     var url = `https://last-dance.azurewebsites.net/api/Elevator/Spec/${id}`;
     const response = await fetch(url);

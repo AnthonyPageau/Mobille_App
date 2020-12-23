@@ -10,6 +10,7 @@ export default class Home extends Component {
     }
   }
   
+  // Fetch all info from elevators with a status Inactive or Intervention
   getInfo() {
     fetch `https://last-dance.azurewebsites.net/api/Elevator/Active`
     .then((response) => response.json())
@@ -21,6 +22,7 @@ export default class Home extends Component {
     })
   }
 
+  // Render a button for each elevator
   _renderItem = ({item, index}) => {
     const info = {
       id: item.id,
@@ -31,6 +33,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <View style={styles.card}>
         <TouchableOpacity
+          // Navigate to the next page and send data from a specific elevator
           onPress={()=> this.props.navigation.navigate('Detail', {item: info })}>
           <Text style={styles.text}> ID:{item.id} </Text>
           <Text style={styles.text}> Status:{item.elevator_status} </Text>
@@ -41,6 +44,7 @@ export default class Home extends Component {
     )
   }
   
+  // Render everytime the page is loaded
   render() {
     this.getInfo()
     let {dataSource, isloading} = this.state

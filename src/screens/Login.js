@@ -7,6 +7,7 @@ import logo from '../screens/Logo-rocket.png'
 
 const { width: WIDTH } = Dimensions.get('window') 
 
+// Get request with the input
 function Login(props) {
   const [text, setText] = useState('');
   const { navigation } = props
@@ -18,6 +19,8 @@ function Login(props) {
     const data = await response.json();
     return data
   };
+
+  // Verifie if the email is in our database.
   async function checkData() {
     var getEmployee = await getData(text)
     if (getEmployee.length == 1) {
@@ -26,6 +29,8 @@ function Login(props) {
       alert("WRONG EMAIL")
     }
   }
+
+    // Render the login page
     return (
       <ImageBackground source={ bgImage }style={styles.backgroundContainer}>
          
